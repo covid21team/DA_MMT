@@ -15,4 +15,4 @@ Server:
 
 - Sau khi giải mã xong thì đếm số lượng xuất hiện của các chữ cái trong bản rõ.
 
-- Trả về số lượng xuất hiện của các chữ cái cho clien
+- Trả về số lượng xuất hiện của các chữ cái cho client
