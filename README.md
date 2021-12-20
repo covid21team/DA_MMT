@@ -16,3 +16,8 @@ Server:
 - Sau khi giải mã xong thì đếm số lượng xuất hiện của các chữ cái trong bản rõ.
 
 - Trả về số lượng xuất hiện của các chữ cái cho client
+
+
+# Link hướng dẫn
+Client-Server(UDP): https://gpcoder.com/3679-xay-dung-ung-dung-client-server-voi-socket-trong-java/
+Ceasar: https://examples.javacodegeeks.com/caesar-cipher-java-example/
