@@ -19,5 +19,7 @@ Server:
 
 
 # Link hướng dẫn
-Client-Server(UDP): https://gpcoder.com/3679-xay-dung-ung-dung-client-server-voi-socket-trong-java/
-Ceasar: https://examples.javacodegeeks.com/caesar-cipher-java-example/
+
+- Client-Server(UDP): https://gpcoder.com/3679-xay-dung-ung-dung-client-server-voi-socket-trong-java/
+
+- Ceasar: https://examples.javacodegeeks.com/caesar-cipher-java-example/
