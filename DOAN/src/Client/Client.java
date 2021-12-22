@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class Client {
     public final static String SERVER_IP = "127.0.0.1";
     public final static int SERVER_PORT = 1433; // Cổng mặc định của Echo Server
-    public final static byte[] BUFFER = new byte[4096]; // Vùng đệm chứa dữ liệu cho gói tin nhận
+    public final static byte[] BUFFER = new byte[10000]; // Vùng đệm chứa dữ liệu cho gói tin nhận
  
     public static void main(String[] args) {
         DatagramSocket ds = null;

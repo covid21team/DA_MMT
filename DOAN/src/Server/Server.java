@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class Server {
     public final static int SERVER_PORT = 1433; // Cổng mặc định của Echo Server
-    public final static byte[] BUFFER = new byte[4096]; // Vùng đệm chứa dữ liệu cho gói tin nhận
+    public final static byte[] BUFFER = new byte[10000]; // Vùng đệm chứa dữ liệu cho gói tin nhận
  
     public static void main(String[] args) {
         DatagramSocket ds = null;
