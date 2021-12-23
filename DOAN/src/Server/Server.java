@@ -74,7 +74,7 @@ public class Server {
                 
  
                 // Tạo gói tin gởi chứa dữ liệu vừa nhận được
-                DatagramPacket outsending = new DatagramPacket(send.getBytes(), incoming.getLength(),
+                DatagramPacket outsending = new DatagramPacket(send.getBytes(), send.getBytes().length,
                         incoming.getAddress(), incoming.getPort());
                 ds.send(outsending);
             }
