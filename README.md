@@ -33,10 +33,12 @@ Server:
  - Nguyên lí hoạt đông
  - Căn nguyên thủy(Khái niệm, công thức)
  - Ví dụ: số 296 -> liệt kê các số căn nguyên thủy của 296
+ 
  2/ Thuật toán mã hóa
  - Nguyên lí hoạt động
  - Yêu cầu của khóa(Lí do khóa chỉ được nằm trong giới hạn đó)
  - Ưu điểm & nhược điểm 
+ 
  3/ UDP
  - Nguyên lí hoạt động
  - So sách với TCP
