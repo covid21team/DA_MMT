@@ -23,24 +23,49 @@ public class Client {
     public final static int SERVER_PORT = 1433; // Cổng mặc định của Echo Server
     public final static byte[] BUFFER = new byte[10000]; // Vùng đệm chứa dữ liệu cho gói tin nhận
  
+    private static int q = 353;
+    private static int a = 3;;
+    
     public static void main(String[] args) {
         DatagramSocket ds = null;
         String str = "";
         int key;
+        int keyServer = 1;
+        int checkSend = 0;
         try {
             ds = new DatagramSocket(); // Tạo DatagramSocket
             System.out.println("Client started ");
  
             InetAddress server = InetAddress.getByName(SERVER_IP);
             while (true) {
+                if(checkSend == 0){
+                    // Tạo gói tin gởi
+                    DatagramPacket khoa = new DatagramPacket("Lấy khóa".getBytes(), "Lấy khóa".getBytes().length, server, SERVER_PORT);
+                    ds.send(khoa); // Send gói tin sang Echo Server
+
+                     // nhận khóa công khai từ server
+                    DatagramPacket incoming1 = new DatagramPacket(BUFFER, BUFFER.length);
+                    ds.receive(incoming1); // Chờ nhận dữ liệu từ EchoServer gởi về
+
+                    keyServer = Integer.parseInt(new String(incoming1.getData(), 0, incoming1.getLength()));
+                    System.out.println("Khoa cong khai server: " + new String(incoming1.getData(), 0, incoming1.getLength()));
+                    
+                    checkSend = 1;
+                }
+                
                 Scanner sc = new Scanner(System.in);
                 System.out.print("Nhap van ban: ");
                 str = sc.nextLine();
                 System.out.print("Nhap khoa: ");
                 key = sc.nextInt();
                 
-                String text = encode(str, key);
-                byte[] data = text.getBytes(); // Đổi chuỗi ra mảng bytes
+                //Tạo khóa công khai
+                int keyPublic  = (int)Math.pow(a, key) % q;
+                //Tạo khóa bí mật chung
+                int keyPrivate = (int)Math.pow(keyServer, key) % q;
+                
+                String text = encode(str, keyPrivate);
+                byte[] data = (text+"@"+keyPublic).getBytes(); // Đổi chuỗi ra mảng bytes
  
                 // Tạo gói tin gởi
                 DatagramPacket dp = new DatagramPacket(data, data.length, server, SERVER_PORT);

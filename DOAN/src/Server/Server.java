@@ -24,16 +24,22 @@ public class Server {
     public final static int SERVER_PORT = 1433; // Cổng mặc định của Echo Server
     public final static byte[] BUFFER = new byte[10000]; // Vùng đệm chứa dữ liệu cho gói tin nhận
  
+    private static int q = 353;
+    private static int a = 3;
+    
     public static void main(String[] args) {
         DatagramSocket ds = null;
         int key = 2;
+        //Tạo khóa công khai
+        int keyPublic = (int)Math.pow(a, key) % q;
         try {
             System.out.println("Binding to port " + SERVER_PORT + ", please wait  ...");
             ds = new DatagramSocket(SERVER_PORT); // Tạo Socket với cổng là 7
             System.out.println("Server started ");
             System.out.println("Waiting for messages from Client ... ");
  
-            while (true) { // Tạo gói tin nhận
+            while (true) { 
+                // Tạo gói tin nhận
                 DatagramPacket incoming = new DatagramPacket(BUFFER, BUFFER.length);
                 ds.receive(incoming); // Chờ nhận gói tin gởi đến
  
@@ -41,42 +47,57 @@ public class Server {
                 String message = new String(incoming.getData(), 0, incoming.getLength());
                 System.out.println("Van ban nhap duoc: " + message);
                 
-                //Giải mã
-                String text = decode(message, 26-key);
-                System.out.println("bản rõ: " + text);
-                
-                //Đếm số lượng 
-                List<String> chucai = new ArrayList<String>();
-                
-                for(int i = 0; i < text.length(); i ++){
-                    if(check(chucai, String.valueOf(text.charAt(i)))){
-                        chucai.add(String.valueOf(text.charAt(i)));
-                    }
-                }
-                
-                String send = "";
-                int dem = 0;
-                for(int i = 0; i < chucai.size(); i ++)
-                {
-                    for(int j = 0; j < text.length(); j ++){
-                        String kytu = String.valueOf(text.charAt(j));
-                        if(chucai.get(i).equals(kytu)){
-                            dem ++;
+                //kiểm tra yêu cầu
+                if(message.equals("Lấy khóa")){
+                    //Gửi khóa công khai
+                    DatagramPacket outsending = new DatagramPacket((keyPublic+"").getBytes(), (keyPublic+"").getBytes().length,
+                        incoming.getAddress(), incoming.getPort());
+                    ds.send(outsending);
+                }else{
+                    //Lấy khóa công khai của client
+                    String[] str = message.split("@");
+                    int keyClient = Integer.parseInt(str[1]);
+                    
+                    //Tạo khóa bí mật chung
+                    int keyPrivate = (int)Math.pow(keyClient, key) % q;
+                    
+                    //Giải mã
+                    String text = decode(str[0], 26-keyPrivate);
+                    System.out.println("bản rõ: " + text);
+
+                    //Đếm số lượng 
+                    List<String> chucai = new ArrayList<String>();
+
+                    for(int i = 0; i < text.length(); i ++){
+                        if(check(chucai, String.valueOf(text.charAt(i)))){
+                            chucai.add(String.valueOf(text.charAt(i)));
                         }
                     }
-                    if(i == chucai.size()-1){
-                        send += chucai.get(i)+": "+dem;
-                    }else{
-                        send += chucai.get(i)+": "+dem+" - ";
+
+                    String send = "";
+                    int dem = 0;
+                    for(int i = 0; i < chucai.size(); i ++)
+                    {
+                        for(int j = 0; j < text.length(); j ++){
+                            String kytu = String.valueOf(text.charAt(j));
+                            if(chucai.get(i).equals(kytu)){
+                                dem ++;
+                            }
+                        }
+                        if(i == chucai.size()-1){
+                            send += chucai.get(i)+": "+dem;
+                        }else{
+                            send += chucai.get(i)+": "+dem+" - ";
+                        }
+                        dem = 0;
                     }
-                    dem = 0;
+
+
+                    // Tạo gói tin gởi chứa dữ liệu vừa nhận được
+                    DatagramPacket outsending = new DatagramPacket(send.getBytes(), send.getBytes().length,
+                            incoming.getAddress(), incoming.getPort());
+                    ds.send(outsending);
                 }
-                
- 
-                // Tạo gói tin gởi chứa dữ liệu vừa nhận được
-                DatagramPacket outsending = new DatagramPacket(send.getBytes(), send.getBytes().length,
-                        incoming.getAddress(), incoming.getPort());
-                ds.send(outsending);
             }
         } catch (IOException e) {
             e.printStackTrace();
