@@ -26,3 +26,19 @@ Server:
 
 - Trao đổi khóa Diffie-Hellman: https://www.youtube.com/watch?v=Hkjqgl5J7lo
 ![image](https://user-images.githubusercontent.com/83626285/147381418-4226e208-21ef-4ccf-9b6b-bdcf1b0a2375.png)
+
+ # Công việc
+ 
+ 1/ Trao đổi khóa
+ - Nguyên lí hoạt đông
+ - Căn nguyên thủy(Khái niệm, công thức)
+ - Ví dụ: số 296 -> liệt kê các số căn nguyên thủy của 296
+ 2/ Thuật toán mã hóa
+ - Nguyên lí hoạt động
+ - Yêu cầu của khóa(Lí do khóa chỉ được nằm trong giới hạn đó)
+ - Ưu điểm & nhược điểm 
+ 3/ UDP
+ - Nguyên lí hoạt động
+ - So sách với TCP
+ - Ứng dụng của UDP
+ - Ưu điểm & nhược điểm
