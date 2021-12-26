@@ -29,21 +29,21 @@ Server:
 
  # Công việc
  
- 1/ Trao đổi khóa(<b><i><u>Trí</u></i></b>)
+ 1/ Trao đổi khóa(<b><i><u>Nguyễn Hoàng Trí</u></i></b>)
  - Nguyên lí hoạt đông
  - Căn nguyên thủy(Khái niệm, công thức)
  - Ví dụ: số 296 -> liệt kê các số căn nguyên thủy của 296
  - Tại sao lại phải cần căn nguyên thủy
  - Trao đổi khóa như vậy có thể bị lộ không? Vì sao
  
- 2/ Thuật toán mã hóa(<b><i><u>Phú</u></i></b>)
+ 2/ Thuật toán mã hóa(<b><i><u>Trương Gia Phú</u></i></b>)
  - Nguyên lí hoạt động
  - Yêu cầu của khóa(Lí do khóa chỉ được nằm trong giới hạn đó)
  - Ưu điểm & nhược điểm 
  - Khóa là kí tự được không? Tại sao
  - Bảo mật như thế nào? Tại sao
  
- 3/ UDP(<b><i><u>Tuấn</u></i></b>)
+ 3/ UDP(<b><i><u>Hồ Quốc Tuấn</u></i></b>)
  - Nguyên lí hoạt động
  - So sách với TCP
  - Ứng dụng của UDP
