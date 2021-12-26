@@ -29,7 +29,7 @@ public class Server {
     
     public static void main(String[] args) {
         DatagramSocket ds = null;
-        int key = 2;
+        int key = 1;
         //Tạo khóa công khai
         int keyPublic = (int)Math.pow(a, key) % q;
         try {
@@ -41,7 +41,7 @@ public class Server {
             while (true) { 
                 // Tạo gói tin nhận
                 DatagramPacket incoming = new DatagramPacket(BUFFER, BUFFER.length);
-                ds.receive(incoming); // Chờ nhận gói tin gởi đến
+                ds.receive(incoming); // Chờ nhận gói tin gởi đến-
  
                 // Lấy dữ liệu khỏi gói tin nhận
                 String message = new String(incoming.getData(), 0, incoming.getLength());
