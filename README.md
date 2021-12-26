@@ -32,7 +32,7 @@ Server:
  1/ Trao đổi khóa(<b><i><u>Nguyễn Hoàng Trí</u></i></b>)
  - Nguyên lí hoạt đông
  - Căn nguyên thủy(Khái niệm, công thức)
- - Ví dụ: số 296 -> liệt kê các số căn nguyên thủy của 296
+ - Ví dụ: số 353 -> liệt kê các số căn nguyên thủy của 353
  - Tại sao lại phải cần căn nguyên thủy
  - Trao đổi khóa như vậy có thể bị lộ không? Vì sao
  
