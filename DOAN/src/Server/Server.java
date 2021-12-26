@@ -85,9 +85,9 @@ public class Server {
                             }
                         }
                         if(i == chucai.size()-1){
-                            send += chucai.get(i)+": "+dem;
+                            send += chucai.get(i)+":"+dem;
                         }else{
-                            send += chucai.get(i)+": "+dem+" - ";
+                            send += chucai.get(i)+":"+dem+"-";
                         }
                         dem = 0;
                     }

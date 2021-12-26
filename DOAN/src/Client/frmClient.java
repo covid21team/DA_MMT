@@ -5,17 +5,89 @@
  */
 package Client;
 
+import static Client.Client.BUFFER;
+import static Client.Client.SERVER_IP;
+import static Client.Client.SERVER_PORT;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PHU
  */
 public class frmClient extends javax.swing.JFrame {
 
+    public final static String SERVER_IP = "127.0.0.1";
+    public final static int SERVER_PORT = 1433; // Cổng mặc định của Echo Server
+    public final static byte[] BUFFER = new byte[10000]; // Vùng đệm chứa dữ liệu cho gói tin nhận
+ 
+    private static int q = 353;
+    private static int a = 3;
+    
+    private DatagramSocket ds = null;
+    private String str = "";
+    private int key;
+    private int keyServer = 1;
+    private int checkSend = 0;
     /**
      * Creates new form frmClient
      */
     public frmClient() {
         initComponents();
+        
+        try {
+            ds = new DatagramSocket(); // Tạo DatagramSocket
+            System.out.println("Client started ");
+ 
+            InetAddress server = InetAddress.getByName(SERVER_IP);
+
+            if(checkSend == 0){
+                // Tạo gói tin gởi
+                DatagramPacket khoa = new DatagramPacket("Lấy khóa".getBytes(), "Lấy khóa".getBytes().length, server, SERVER_PORT);
+                ds.send(khoa); // Send gói tin sang Echo Server
+
+                 // nhận khóa công khai từ server
+                DatagramPacket incoming1 = new DatagramPacket(BUFFER, BUFFER.length);
+                ds.receive(incoming1); // Chờ nhận dữ liệu từ EchoServer gởi về
+
+                keyServer = Integer.parseInt(new String(incoming1.getData(), 0, incoming1.getLength()));
+                System.out.println("Khoa cong khai server: " + new String(incoming1.getData(), 0, incoming1.getLength()));
+
+                checkSend = 1;
+            }
+
+        } catch (IOException e) {
+            System.err.println(e);
+        } finally {
+            if (ds != null) {
+                ds.close();
+            }
+        }
+    }
+    
+    private static String encode(String str, int key){
+        StringBuffer result = new StringBuffer();
+
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isUpperCase(str.charAt(i))) {
+                char ch = (char) (((int) str.charAt(i) +
+                        key - 65) % 26 + 65);
+                result.append(ch);
+            } else {
+                char ch = (char) (((int) str.charAt(i) +
+                        key - 97) % 26 + 97);
+                result.append(ch);
+            }
+        }
+        
+        return result.toString();
     }
 
     /**
@@ -31,11 +103,12 @@ public class frmClient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtKhoa = new javax.swing.JTextField();
-        txtKQ = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnDem = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,14 +116,38 @@ public class frmClient extends javax.swing.JFrame {
 
         jLabel2.setText("Khóa");
 
-        txtKQ.setEnabled(false);
-
         jLabel3.setText("Kết quả");
 
-        jButton1.setText("Điếm");
+        btnDem.setText("Đếm");
+        btnDem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDemActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("ĐỀ TÀI SỐ 13 - NHÓM RLCRAFT");
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Ký tự", "Số lượng"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,24 +155,22 @@ public class frmClient extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtKQ)
-                            .addComponent(txtVB)
-                            .addComponent(txtKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtVB, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(txtKhoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                            .addComponent(btnDem, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jLabel4))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,16 +188,87 @@ public class frmClient extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtKhoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 114, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDem)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDemActionPerformed
+        try {
+            str = txtVB.getText();
+            key = Integer.parseInt(txtKhoa.getText());
+            
+            ds = new DatagramSocket(); // Tạo DatagramSocket
+            System.out.println("Client started ");
+ 
+            InetAddress server = InetAddress.getByName(SERVER_IP);
+    
+            //Tạo khóa công khai
+            int keyPublic  = (int)Math.pow(a, key) % q;
+            //Tạo khóa bí mật chung
+            int keyPrivate = (int)Math.pow(keyServer, key) % q;
+
+            //mã hóa văn bản
+            String text = encode(str, keyPrivate);
+            byte[] data = (text+"@"+keyPublic).getBytes(); // Đổi chuỗi ra mảng bytes
+
+            // Tạo gói tin gởi
+            DatagramPacket dp = new DatagramPacket(data, data.length, server, SERVER_PORT);
+            ds.send(dp); // Send gói tin sang Echo Server
+
+            // Gói tin nhận
+            DatagramPacket incoming = new DatagramPacket(BUFFER, BUFFER.length);
+            ds.receive(incoming); // Chờ nhận dữ liệu từ EchoServer gởi về
+            String message = new String(incoming.getData(), 0, incoming.getLength());
+
+            //tách từng kí tự
+            String[] kytu_so = message.split("-");
+
+            //tách 2 mảng
+            List<String> kytu = new ArrayList<String>();
+            List<String> so = new ArrayList<String>();
+
+            for(int i = 0; i < kytu_so.length; i++){
+                String[] temp = kytu_so[i].split(":");
+                kytu.add(temp[0]);
+                so.add(temp[1]);
+            }
+
+            //truyền data lên jTable
+            Vector vctHeader = new Vector();
+            Vector vctData = new Vector();
+
+            vctHeader.add("Ký tự");
+            vctHeader.add("Số lượng");
+
+            for(int i = 0; i < kytu.size(); i ++){
+                Vector vctRow = new Vector();
+                vctRow.add(kytu.get(i));
+                vctRow.add(so.get(i));
+                vctData.add(vctRow);
+            }
+
+            table.setModel(new DefaultTableModel(vctData, vctHeader));
+
+            // Đổi dữ liệu nhận được dạng mảng bytes ra chuỗi và in ra màn hình
+            System.out.println("So luong xuat hien cua cac chu cai: " + message);
+
+        } catch (IOException e) {
+            System.err.println(e);
+        } finally {
+            if (ds != null) {
+                ds.close();
+            }
+        }
+    }//GEN-LAST:event_btnDemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,13 +306,14 @@ public class frmClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField txtKQ;
+    private javax.swing.JTable table;
     private javax.swing.JTextField txtKhoa;
     private javax.swing.JTextField txtVB;
     // End of variables declaration//GEN-END:variables
