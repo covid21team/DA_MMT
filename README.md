@@ -22,7 +22,7 @@ Server:
 
 - Client-Server(UDP): https://gpcoder.com/3679-xay-dung-ung-dung-client-server-voi-socket-trong-java/
 
-- Ceasar: https://examples.javacodegeeks.com/caesar-cipher-java-example/
+- Ceasar: https://examples.javacodegeeks.com/caesar-cipher-java-example/ , https://viblo.asia/p/mat-ma-hoc-phan-1-ma-hoa-caesar-RQqKLM0MZ7z
 
 - Trao đổi khóa Diffie-Hellman: https://www.youtube.com/watch?v=Hkjqgl5J7lo
 ![image](https://user-images.githubusercontent.com/83626285/147381418-4226e208-21ef-4ccf-9b6b-bdcf1b0a2375.png)
