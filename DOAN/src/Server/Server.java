@@ -60,6 +60,7 @@ public class Server {
                     
                     //Tạo khóa bí mật chung
                     int keyPrivate = (int)Math.pow(keyClient, key) % q;
+                    System.out.println("Khoa bi mat chung: " + keyPrivate);
                     
                     //Giải mã
                     String text = decode(str[0], 26-keyPrivate);
