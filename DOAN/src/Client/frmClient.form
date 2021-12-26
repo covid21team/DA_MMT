@@ -49,7 +49,7 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -103,7 +103,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p v&#x103;n b&#x1ea3;ng"/>
+        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p v&#x103;n b&#x1ea3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -185,7 +185,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x110;o&#x1ea1;n m&#xe3;"/>
+        <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbb">
