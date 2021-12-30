@@ -35,6 +35,7 @@ Server:
  - Ví dụ: số 353 -> liệt kê các số căn nguyên thủy của 353
  - Tại sao lại phải cần căn nguyên thủy
  - Trao đổi khóa như vậy có thể bị lộ không? Vì sao
+ - Ngoài trao đổi số, thì có thể trao đổi kí tự không? Giải thích
  
  2/ Thuật toán mã hóa(<b><i><u>Trương Gia Phú</u></i></b>)
  - Nguyên lí hoạt động
