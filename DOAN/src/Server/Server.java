@@ -60,10 +60,14 @@ public class Server {
                     
                     //Tạo khóa bí mật chung
                     int keyPrivate = (int)Math.pow(keyClient, key) % q;
-                    System.out.println("Khoa bi mat chung: " + keyPrivate);
+                    //System.out.println("Khoa bi mat chung: " + keyPrivate);
+                    
+                    //Tính key
+                    int k = tinh(keyPrivate);
+                    System.out.println("k: "+k);
                     
                     //Giải mã
-                    String text = decode(str[0], 26-keyPrivate);
+                    String text = decode(str[0], 26-k);
                     System.out.println("bản rõ: " + text);
 
                     //Đếm số lượng 
@@ -92,7 +96,6 @@ public class Server {
                         }
                         dem = 0;
                     }
-
 
                     // Tạo gói tin gởi chứa dữ liệu vừa nhận được
                     DatagramPacket outsending = new DatagramPacket(send.getBytes(), send.getBytes().length,
@@ -133,5 +136,16 @@ public class Server {
             }
         }
         return true;
+    }
+    
+    private static int tinh(int a){
+        int tong = 0;
+        do{
+            int temp = a%10;
+            a = a/10;
+            tong += temp;
+        }while(a > 0);
+        
+        return tong;
     }
 }

@@ -60,7 +60,7 @@ public class Client {
                 key = sc.nextInt();
                 
                 //Tạo khóa công khai
-                int keyPublic  = (int)Math.pow(a, key) % q;
+                int keyPublic  = (int)Math.pow(a, tinh(key)) % q;
                 //Tạo khóa bí mật chung
                 int keyPrivate = (int)Math.pow(keyServer, key) % q;
                 
@@ -103,5 +103,16 @@ public class Client {
         }
         
         return result.toString();
+    }
+    
+    private static int tinh(int a){
+        int tong = 0;
+        do{
+            int temp = a%10;
+            a = a/10;
+            tong += temp;
+        }while(a > 0);
+        
+        return tong;
     }
 }

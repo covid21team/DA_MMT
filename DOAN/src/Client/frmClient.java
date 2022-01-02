@@ -73,8 +73,8 @@ public class frmClient extends javax.swing.JFrame {
         
         cbb.removeAllItems();
         
-        for(int i = 1; i < q; i ++){
-            if(checkKey(i)){
+        for(int i = 1; i < 40; i ++){
+            if(i < q){
                 cbb.addItem(i+"");
             }
         }
@@ -87,6 +87,30 @@ public class frmClient extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+    
+    private static int tinh(long a){
+        int tong = 0;
+        do{
+            long temp = a%10;
+            a = a/10;
+            tong += temp;
+            //System.out.println("check: "+ tong);
+        }while(a > 0);
+        
+        if(tong > 25){
+            int tong1 = 0;
+            do{
+                long temp1 = tong%10;
+                tong = tong/10;
+                tong1 += temp1;
+                //System.out.println("check: "+ tong);
+            }while(tong > 0);
+            
+            return tong1;
+        }
+        
+        return tong;
     }
     
     private static String encode(String str, int key){
@@ -248,14 +272,19 @@ public class frmClient extends javax.swing.JFrame {
             System.out.println("Client started ");
  
             InetAddress server = InetAddress.getByName(SERVER_IP);
-    
+            
             //Tạo khóa công khai
-            int keyPublic  = (int)Math.pow(a, key) % q;
+            long keyPublic  = (long)Math.pow(a, key) % q;
             //Tạo khóa bí mật chung
-            int keyPrivate = (int)Math.pow(keyServer, key) % q;
-
+            long keyPrivate = (long)Math.pow(keyServer, key) % q;
+            System.out.println("keyPrivate: "+keyPrivate);
+            
+            //Tính key
+            int k = tinh(keyPrivate);
+            System.out.println("k: "+k);
+            
             //mã hóa văn bản
-            String text = encode(str, keyPrivate);
+            String text = encode(str, k);
             txtMH.setText(text);
             byte[] data = (text+"@"+keyPublic).getBytes(); // Đổi chuỗi ra mảng bytes
 
