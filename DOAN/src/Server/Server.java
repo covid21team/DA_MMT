@@ -29,7 +29,7 @@ public class Server {
     
     public static void main(String[] args) {
         DatagramSocket ds = null;
-        int key = 1;
+        int key = 52;
         //Tạo khóa công khai
         int keyPublic = (int)Math.pow(a, key) % q;
         try {
@@ -60,10 +60,11 @@ public class Server {
                     
                     //Tạo khóa bí mật chung
                     int keyPrivate = (int)Math.pow(keyClient, key) % q;
-                    System.out.println("Khoa bi mat chung: " + keyPrivate);
+                    int k = CalKey(keyPrivate);
+                    System.out.println("Khoa bi mat chung: " + k);
                     
                     //Giải mã
-                    String text = decode(str[0], 26-keyPrivate);
+                    String text = decode(str[0], 26-k);
                     System.out.println("bản rõ: " + text);
 
                     //Đếm số lượng 
@@ -134,4 +135,19 @@ public class Server {
         }
         return true;
     }
+    
+    public static int CalKey(int n){
+    while(n>26){
+            for(int i=9;i>0;i--){
+                if(n%i != 0){
+                    continue;
+                }
+                n= n/i;
+                break;
+            }
+            if(n!=26&&n!=1)
+            n=n-1;
+        };
+        return n;
+    }   
 }

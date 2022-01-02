@@ -37,13 +37,13 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtMH" pref="287" max="32767" attributes="0"/>
                           <Component id="txtVB" pref="287" max="32767" attributes="0"/>
-                          <Component id="cbb" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnDem" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
+                          <Component id="txtk" alignment="1" pref="287" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbb" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtk" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -85,7 +85,7 @@
                   <Component id="btnDem" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -188,15 +188,12 @@
         <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbb">
+    <Component class="javax.swing.JTextField" name="txtk">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

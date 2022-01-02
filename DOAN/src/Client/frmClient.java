@@ -71,13 +71,13 @@ public class frmClient extends javax.swing.JFrame {
             }
         }
         
-        cbb.removeAllItems();
-        
-        for(int i = 1; i < q; i ++){
-            if(checkKey(i)){
-                cbb.addItem(i+"");
-            }
-        }
+//        cbb.removeAllItems();
+//        
+//        for(int i = 1; i < q; i ++){
+//            if(checkKey(i)){
+//                cbb.addItem(i+"");
+//            }
+//        }
     }
     
     private static boolean checkKey(int n){
@@ -128,7 +128,7 @@ public class frmClient extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtMH = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbb = new javax.swing.JComboBox<>();
+        txtk = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,6 +179,8 @@ public class frmClient extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Mã hóa");
 
+        txtk.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,12 +198,12 @@ public class frmClient extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtMH, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                             .addComponent(txtVB, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                            .addComponent(cbb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnDem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(txtk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)))
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -220,7 +222,7 @@ public class frmClient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cbb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +235,7 @@ public class frmClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDem)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,20 +244,22 @@ public class frmClient extends javax.swing.JFrame {
     private void btnDemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDemActionPerformed
         try {
             str = txtVB.getText();
-            key = Integer.parseInt(cbb.getSelectedItem().toString());
+//            key = Integer.parseInt(cbb.getSelectedItem().toString());
+            key = Integer.parseInt(txtk.getText().toString());
             
             ds = new DatagramSocket(); // Tạo DatagramSocket
             System.out.println("Client started ");
  
             InetAddress server = InetAddress.getByName(SERVER_IP);
-    
+
             //Tạo khóa công khai
             int keyPublic  = (int)Math.pow(a, key) % q;
             //Tạo khóa bí mật chung
             int keyPrivate = (int)Math.pow(keyServer, key) % q;
-
+            int k = CalKey(keyPrivate);
+            
             //mã hóa văn bản
-            String text = encode(str, keyPrivate);
+            String text = encode(str, k);
             txtMH.setText(text);
             byte[] data = (text+"@"+keyPublic).getBytes(); // Đổi chuỗi ra mảng bytes
 
@@ -347,10 +351,24 @@ public class frmClient extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static int CalKey(int n){
+    while(n>26){
+            for(int i=9;i>0;i--){
+                if(n%i != 0){
+                    continue;
+                }
+                n= n/i;
+                break;
+            }
+            if(n!=26&&n!=1)
+            n=n-1;
+        };
+        return n;
+    }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDem;
-    private javax.swing.JComboBox<String> cbb;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -362,5 +380,6 @@ public class frmClient extends javax.swing.JFrame {
     private javax.swing.JTable table;
     private javax.swing.JTextField txtMH;
     private javax.swing.JTextField txtVB;
+    private javax.swing.JTextField txtk;
     // End of variables declaration//GEN-END:variables
 }
