@@ -138,13 +138,26 @@ public class Server {
         return true;
     }
     
-    private static int tinh(int a){
+    private static int tinh(long a){
         int tong = 0;
         do{
-            int temp = a%10;
+            long temp = a%10;
             a = a/10;
             tong += temp;
+            //System.out.println("check: "+ tong);
         }while(a > 0);
+        
+        if(tong > 25){
+            int tong1 = 0;
+            do{
+                long temp1 = tong%10;
+                tong = tong/10;
+                tong1 += temp1;
+                //System.out.println("check: "+ tong);
+            }while(tong > 0);
+            
+            return tong1;
+        }
         
         return tong;
     }
