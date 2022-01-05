@@ -36,6 +36,7 @@ public class frmClient extends javax.swing.JFrame {
     private int key;
     private static int keyServer = 1;
     private int checkSend = 0;
+    
     /**
      * Creates new form frmClient
      */
@@ -73,18 +74,23 @@ public class frmClient extends javax.swing.JFrame {
         
         cbb.removeAllItems();
         
-        for(int i = 1; i < 40; i ++){
-            if(i < q){
+        for(int i = 1; i < q; i ++){
+            if(checkKey(i)){
                 cbb.addItem(i+"");
+            }else{
+                break;
             }
         }
     }
     
-    private static boolean checkKey(int n){
-        int check = (int)Math.pow(keyServer, n);
-        
-        if(check % q > 0 && check % q < 25){
-            return true;
+    private boolean checkKey(int n){
+        if(n < q){
+            System.out.println("Long size: "+Long.SIZE);
+            if(Math.pow(keyServer, n) > Long.SIZE){
+                return false;
+            }else {
+                return true;
+            }
         }
         return false;
     }
