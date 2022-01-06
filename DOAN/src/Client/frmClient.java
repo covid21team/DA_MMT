@@ -181,7 +181,7 @@ public class frmClient extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("ĐỀ TÀI SỐ 13 - NHÓM RLCRAFT");
+        jLabel4.setText("ĐỀ TÀI SỐ 13 - NHÓM COVID22");
 
         table.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -345,7 +345,7 @@ public class frmClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

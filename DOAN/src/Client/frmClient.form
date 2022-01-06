@@ -135,7 +135,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1ec0; T&#xc0;I S&#x1ed0; 13 - NH&#xd3;M RLCRAFT"/>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1ec0; T&#xc0;I S&#x1ed0; 13 - NH&#xd3;M COVID22"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
